@@ -50,13 +50,24 @@
     <hr class="border-white border-opacity-10 border w-full" />
 
     <!-- Hourly Weather -->
-    <div class="max-w-screen-md w-full py-12">
+    <div class="max-w-screen-lg w-full py-12 select-none">
       <div class="mx-8 text-white">
-        <h2 class="mb-4">Hourly Weather</h2>
-        <div class="flex gap-10 overflow-x-scroll">
-            <div v-for="(hour, index) in weather.hourlyWeather" :key="hour"
+        <h2 class="text-4xl mb-10 text-center ">Hourly Weather</h2>
+        <swiper 
+		class="flex gap-10 pb-7"
+		:modules="modules"
+		:spaceBetween="5"
+		:slidesPerView="4"
+		:grabCursor="true"
+		:scrollbar="{ draggable: true }"
+		:freeMode="true"
+		:breakpoints="breakpoints"
+		>
+            <swiper-slide 
+			v-for="(hour, index) in weather.hourlyWeather" :key="hour"
             class = "flex flex-col gap-3 items-center"
-            >
+            
+			>
                      <p class="whitespace-nowrap text-lg"
 					 :class="index === 0 ? 'font-bold' : ''"
 					 >
@@ -82,12 +93,15 @@
                     class="text-4xl pb-2"
                     :class="hour.description.icon"
                     ></i> 
-                   <p class="text-x1">
+                   <p class="text-base">
                         {{ hour.temp}}&deg;C
                     </p>
-            </div>
+                   <p class="text-xs text-center">
+                        {{ hour.description.string}}
+                    </p>
+            </swiper-slide>
 			     
-        </div>
+        </swiper>
 
 		
       </div>
@@ -99,8 +113,7 @@
 <script setup>
 import axios from "axios";
 import { useRoute } from "vue-router";
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/vue';
+import { ref, defineEmits } from "vue";
 
 const route = useRoute();
 
@@ -355,14 +368,35 @@ function getWeatherIconString(code, day) {
 
 
 // swiper 
+import { Navigation, Pagination, Scrollbar, A11y, Thumbs, FreeMode } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+
+const modules = ref([
+  Scrollbar,
+  FreeMode
+]);
+
+const breakpoints = ref({
+  0: {
+	slidesPerView: 1
+  },
+  480: {
+	slidesPerView: 2
+  },
+  768: {
+	slidesPerView: 3
+  },
+  1024: {
+	slidesPerView: 4
+  }
+});
 
 
 </script>
 
 <style scoped>
-@import 'swiper/css';
-@import 'swiper/css/navigation';
-@import 'swiper/css/pagination';
-@import 'swiper/css/scrollbar';
+
 </style>
