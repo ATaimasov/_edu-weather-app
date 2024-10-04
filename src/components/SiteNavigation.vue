@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 bg-weather-primary shadow-lg">
+  <header class="sticky top-0 bg-weather-primary shadow-lg z-50">
     <nav
       class="container flex flex-col sm:flex-row items-center gap-4 text-white py-6"
     >
@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import BaseModal from "./BaseModal.vue";
 import { RouterLink } from "vue-router";
 
@@ -65,4 +65,26 @@ const modalActive = ref(null);
 const toggleModal = () => {
   modalActive.value = !modalActive.value;
 }
+
+
+const handleClickOutside = (e) => {
+    console.log("target",  e.target)
+
+  if (modalActive.value && !e.target.classList.contains("fa-circle-info") && !e.target.closest(".modal-content")) {
+    toggleModal();
+    console.info("target inside")
+  }
+
+};
+
+
+onMounted(() => {
+  window.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("click", handleClickOutside);
+});
+
+
 </script>

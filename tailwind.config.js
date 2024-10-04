@@ -20,6 +20,9 @@ export default {
       md: "768px",
       lg: "1024px",
     },
+    gridTemplateRows: {
+      hourWeather: ["20% 40% 35%"]
+    },
   },
   plugins: [ ],
 }

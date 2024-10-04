@@ -3,13 +3,22 @@
 ## Введение
 
 Учебный проект по Vue. 
-Изначально шел по гайду (<a href="https://www.youtube.com/watch?v=NilffTjcDVA&list=PL4cUxeGkcC9hfoy8vFQ5tbXO3vY0xhhUZ&index=6">Youtube</a>, <a href="https://github.com/johnkomarnicki/net_ninja_vue_3_weather_app">Github</a>), впоследствии из-за нестабильности сервера, отправляющего данные на api-запросы (указанного в гайде), решил реализовать логику вывода погоды по-своему.
+Изначально создавался по гайду (<a href="https://www.youtube.com/watch?v=NilffTjcDVA&list=PL4cUxeGkcC9hfoy8vFQ5tbXO3vY0xhhUZ&index=6">Youtube</a>, <a href="https://github.com/johnkomarnicki/net_ninja_vue_3_weather_app">Github</a>), впоследствии из-за нестабильности сервера, отправляющего данные на api-запросы (указанного в гайде), решил реализовать часть приложения по-своему.
 
-Так, в противовес гайду с ютуба было реализовано следующее:
-- Вместо использования рекомендованного в видеоматериале сервера, запрос погодных данных осуществляется на другой API-сервер, работа происходит с другими данными.
-- Использована независящая от API-сервера библиотека иконок (<a href="https://github.com/erikflowers/weather-icons">Github</a>)
-- Было проанализировано погодное приложение, написанное на Svelte (<a href="https://github.com/cakePhone/SkyMuse">Github</a>), откуда был частично взят необходимый код и впоследствии скорректированный под мой проект.
-- Встроен Swiper для положительного UX
+## Отсебятина
+
+В противовес гайду с ютуба реализовано следующее:
+<br> 
+1. Вместо использованного в видеоматериале API-сервера, запрос погодных данных осуществляется на другой сервер. 
+Соответственно, работа происходит с другими данными (например, это привело к необходимости п.2).
+<br>
+2. Использована независящая от API-сервера библиотека иконок (<a href="https://github.com/erikflowers/weather-icons">Github</a>)
+<br>
+3. Было проанализировано иное погодное приложение, также делающее API-запрос к open-meteo.com, но написанное на Svelte (<a href="https://github.com/cakePhone/SkyMuse">Github</a>).
+Оттуда частично слизана реализация работы с получаемыми данными, но в тоже время скорректированная под мой проект (open source, он такой).
+<br> 
+4. Встроен Swiper для положительного UX
+<br>
 
 ---
 
@@ -21,7 +30,7 @@
 - Tailwindcss 
 - Swiper 
 - Axios 
-- Библиотека иконок<a href="https://github.com/erikflowers/weather-icons">weather-icons</a> 
+- font-css библиотека иконок: <a href="https://github.com/erikflowers/weather-icons">Weather Icons</a> 
 
 Написано с подходом Composition API
 
