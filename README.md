@@ -17,7 +17,7 @@
 3. Было проанализировано иное погодное приложение, также делающее API-запрос к open-meteo.com, но написанное на Svelte (<a href="https://github.com/cakePhone/SkyMuse">Github</a>).
 Оттуда частично слизана реализация работы с получаемыми данными, но в тоже время скорректированная под мой проект (open source, он такой).
 <br> 
-4. Встроен Swiper для положительного UX
+4. Встроен <a href="https://swiperjs.com/">Swiper</a> для положительного UX
 <br>
 
 ---
@@ -26,10 +26,10 @@
 
 Стек: 
 - Vue
-- Vue Router 
-- Tailwindcss 
-- Swiper 
-- Axios 
+- Vue Router
+- <a href="https://tailwindcss.com/">Tailwind CSS</a> 
+- <a href="https://swiperjs.com/">Swiper</a>
+- <a href="https://axios-http.com/ru/">Axios</a> 
 - font-css библиотека иконок: <a href="https://github.com/erikflowers/weather-icons">Weather Icons</a> 
 
 Написано с подходом Composition API
