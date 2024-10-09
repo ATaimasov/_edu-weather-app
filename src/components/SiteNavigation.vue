@@ -16,7 +16,9 @@
         @click="toggleModal"></i>
         <i
           class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer"
-        ></i>
+          @click="addCity"
+          v-if="route.query.preview === 'true'"
+        ></i> 
       </div>
 
       <BaseModal
@@ -52,31 +54,56 @@
           </p>
         </div>
       </BaseModal>
+      
+      
+      <BaseModal
+      :modalActive="cityExist"
+      @close-modal="toggleCityExist"
+      >
+        <div class="text-black">
+          <h1 class="text-2xl mb-4">City already exist</h1>
+          <p class="">
+            Please choose another city.
+          </p>
+        </div>
+      </BaseModal>
     </nav>
   </header>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
+import { uid } from 'uid'
 import BaseModal from "./BaseModal.vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 
+
+// modal
 const modalActive = ref(null);
 const toggleModal = () => {
   modalActive.value = !modalActive.value;
+  cityExist.value = false;
 }
 
+const cityExist = ref(null);
+
+
+const toggleCityExist = () => {
+  cityExist.value = !cityExist.value;
+  modalActive.value = false;
+}
 
 const handleClickOutside = (e) => {
-    console.log("target",  e.target)
 
   if (modalActive.value && !e.target.classList.contains("fa-circle-info") && !e.target.closest(".modal-content")) {
     toggleModal();
-    console.info("target inside")
+  }
+
+  if (cityExist.value && !e.target.classList.contains("fa-plus") && !e.target.closest(".modal-content")) {
+    toggleCityExist();
   }
 
 };
-
 
 onMounted(() => {
   window.addEventListener("click", handleClickOutside);
@@ -85,6 +112,46 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("click", handleClickOutside);
 });
+
+
+// add
+const savedCities = ref([]);
+const route = useRoute();
+const router = useRouter();
+
+const addCity = () => {
+  if(localStorage.getItem("savedCities")) {
+    savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
+  }
+
+  const locationObj = {
+    id: uid(),
+    state: route.params.state || "",
+    city: route.params.city || "",
+    coords: {
+      lat: route.query.lat || 0,
+      lng: route.query.lng || 0
+    },
+  };
+
+  const cityExist = savedCities.value.some(city => (city.city === locationObj.city) && (city.state === locationObj.state));
+
+  if(cityExist) {
+    toggleCityExist();
+    return;
+  };
+
+  savedCities.value.push(locationObj);
+  localStorage.setItem("savedCities", JSON.stringify(savedCities.value));
+
+  let query = Object.assign({}, route.query)
+	delete query.preview;
+  query.id = locationObj.id;
+	router.replace({query})
+
+  
+}
+
 
 
 </script>
