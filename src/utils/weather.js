@@ -19,7 +19,7 @@ export const getWeatherData = async (lat, lng) => {
       let weeklyWeather = getWeeklyWeather(data);
 
        // Flicker Delay
-       await new Promise(resolve => setTimeout(resolve, 200));
+      //  await new Promise(resolve => setTimeout(resolve, 200));
   
       return {
         currentWeather: currentWeather,

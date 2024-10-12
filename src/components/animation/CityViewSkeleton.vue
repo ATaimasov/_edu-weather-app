@@ -14,13 +14,13 @@
     <!-- Hourly -->
     <div class="flex flex-col py-5 px-8 items-center">
       <AnimatedPlaceholder
-        class="h-[300px] w-full mb-12 "
+        class="h-[300px] max-w-screen-lg w-4/5 mb-12 "
       />
     </div>
     <!-- Weekly -->
     <div class="flex flex-col  px-8 items-center">
       <AnimatedPlaceholder
-        class="max-w-screen-md h-[800px] w-full"
+        class="max-w-screen-lg h-[800px] w-full"
       />
     </div>
   </div>

@@ -33,7 +33,7 @@
       <Suspense>
         <CityList/>
         <template #fallback>
-          <CityCardSkeleton></CityCardSkeleton>
+          <!-- <CityCardSkeleton></CityCardSkeleton> -->
         </template>
       </Suspense>
     </div>
@@ -45,7 +45,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import CityList from "../components/CityList.vue";
-import CityCardSkeleton from "../components/CityCardSkeleton.vue";
+import CityCardSkeleton from "../components/animation/CityCardSkeleton.vue";
 
 const router = useRouter();
 const previewCity = (searchResult) => {
