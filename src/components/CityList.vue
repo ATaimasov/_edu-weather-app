@@ -26,7 +26,7 @@ const getCities = async () => {
         })
         
         const weathers = await Promise.all(requests);
-
+        
         weathers.forEach((weather, index) => {
             savedCities.value[index].weather = weather
         })

@@ -36,6 +36,9 @@
         Precipitation probability:
         {{ weather.currentWeather.precipitationProb }}%
       </p>
+      <i
+        :class="weather.currentWeather.description.icon" class=" pt-10 text-9xl"
+      ></i>
     </div>
     <hr class="border-white border-opacity-10 border w-full" />
 
@@ -146,12 +149,13 @@ const router = useRouter();
 const cityExist = ref(false);
 if(localStorage.getItem("savedCities")) {
   const savedCities = ref(JSON.parse(localStorage.getItem("savedCities")));
-  const currentCity = savedCities.value.find((city) => city.id === route.query.id);
-  if(!currentCity) {
-    cityExist.value = false;
-    console.log("City doesn't exist");
+  const currentCity = savedCities.value.find((city) => city.coords.lat === route.query.lat && city.coords.lng === route.query.lng);
+
+  if(currentCity) {
+    cityExist.value = true;
   }
 }
+
 
 
 const weather = await getWeatherData(route.query.lat, route.query.lng)

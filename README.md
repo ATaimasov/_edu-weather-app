@@ -3,7 +3,7 @@
 ## Введение
 
 Учебный проект по Vue. 
-Изначально создавался по гайду (<a href="https://www.youtube.com/watch?v=NilffTjcDVA&list=PL4cUxeGkcC9hfoy8vFQ5tbXO3vY0xhhUZ&index=6">Youtube</a>, <a href="https://github.com/johnkomarnicki/net_ninja_vue_3_weather_app">Github</a>), впоследствии из-за нестабильности сервера, отправляющего данные на api-запросы (указанного в гайде), решил реализовать часть приложения по-своему.
+Изначально создавался по гайду (<a href="https://www.youtube.com/watch?v=gUsBaB5ViAo&list=PL4cUxeGkcC9hfoy8vFQ5tbXO3vY0xhhUZ">Youtube</a>, <a href="https://github.com/johnkomarnicki/net_ninja_vue_3_weather_app">Github</a>), впоследствии из-за нестабильности сервера, отправляющего данные на api-запросы (указанного в гайде), решил реализовать часть приложения по-своему.
 
 ## Отсебятина
 

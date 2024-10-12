@@ -1,12 +1,12 @@
 <template>
   <header class="sticky top-0 bg-weather-primary shadow-lg z-50">
     <nav
-      class="container flex flex-col sm:flex-row items-center gap-4 text-white py-6"
+      class="container flex flex-col sm:flex-row items-center sm:gap-4 gap-2  text-white sm:py-6 py-3"
     >
       <RouterLink :to="{ name: 'home' }">
         <div class="flex items-center gap-3">
           <i class="fa-solid fa-sun text-2xl"></i>
-          <p class="text-2xl">The Local Weather</p>
+          <p class="sm:text-2xl text-lg">The Local Weather</p>
         </div>
       </RouterLink>
 
