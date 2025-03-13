@@ -10,9 +10,8 @@
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
-import SiteNavigation from './components/SiteNavigation.vue';
-
+import { RouterView } from "vue-router";
+import SiteNavigation from "./components/SiteNavigation.vue";
 </script>
 
 <style scoped>
@@ -25,6 +24,4 @@ import SiteNavigation from './components/SiteNavigation.vue';
   opacity: 0;
   filter: blur(1rem);
 }
-
-
 </style>

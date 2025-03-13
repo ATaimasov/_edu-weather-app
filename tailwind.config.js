@@ -6,7 +6,7 @@ export default {
       colors: {
         "weather-primary": "#00668A",
         "weather-secondary": "#004E71",
-      }
+      },
     },
     fontFamily: {
       Roboto: ["Roboto", "sans-serif"],
@@ -21,9 +21,8 @@ export default {
       lg: "1024px",
     },
     gridTemplateRows: {
-      hourWeather: ["20% 40% 35%"]
+      hourWeather: ["20% 40% 35%"],
     },
   },
-  plugins: [ ],
-}
-
+  plugins: [],
+};

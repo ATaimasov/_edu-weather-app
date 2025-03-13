@@ -1,7 +1,7 @@
 <template>
   <header class="sticky top-0 bg-weather-primary shadow-lg z-50">
     <nav
-      class="container flex flex-col sm:flex-row items-center sm:gap-4 gap-2  text-white sm:py-6 py-3"
+      class="container flex flex-col sm:flex-row items-center sm:gap-4 gap-2 text-white sm:py-6 py-3"
     >
       <RouterLink :to="{ name: 'home' }">
         <div class="flex items-center gap-3">
@@ -13,18 +13,16 @@
       <div class="flex gap-3 flex-1 justify-end">
         <i
           class="fa-solid fa-circle-info text-xl hover:text-weather-secondary duration-150 cursor-pointer"
-        @click="toggleModal"></i>
+          @click="toggleModal"
+        ></i>
         <i
           class="fa-solid fa-plus text-xl hover:text-weather-secondary duration-150 cursor-pointer"
           @click="addCity"
           v-if="route.query.preview === 'true'"
-        ></i> 
+        ></i>
       </div>
 
-      <BaseModal
-      :modalActive="modalActive"
-      @close-modal="toggleModal"
-      >
+      <BaseModal :modalActive="modalActive" @close-modal="toggleModal">
         <div class="text-black">
           <h1 class="text-2xl mb-1">About:</h1>
           <p class="mb-4">
@@ -54,17 +52,11 @@
           </p>
         </div>
       </BaseModal>
-      
-      
-      <BaseModal
-      :modalActive="cityExist"
-      @close-modal="toggleCityExist"
-      >
+
+      <BaseModal :modalActive="cityExist" @close-modal="toggleCityExist">
         <div class="text-black">
           <h1 class="text-2xl mb-4">City already exist</h1>
-          <p class="">
-            Please choose another city.
-          </p>
+          <p class="">Please choose another city.</p>
         </div>
       </BaseModal>
     </nav>
@@ -73,36 +65,40 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-import { uid } from 'uid'
+import { uid } from "uid";
 import BaseModal from "./BaseModal.vue";
 import { RouterLink, useRoute, useRouter } from "vue-router";
-
 
 // modal
 const modalActive = ref(null);
 const toggleModal = () => {
   modalActive.value = !modalActive.value;
   cityExist.value = false;
-}
+};
 
 const cityExist = ref(null);
-
 
 const toggleCityExist = () => {
   cityExist.value = !cityExist.value;
   modalActive.value = false;
-}
+};
 
 const handleClickOutside = (e) => {
-
-  if (modalActive.value && !e.target.classList.contains("fa-circle-info") && !e.target.closest(".modal-content")) {
+  if (
+    modalActive.value &&
+    !e.target.classList.contains("fa-circle-info") &&
+    !e.target.closest(".modal-content")
+  ) {
     toggleModal();
   }
 
-  if (cityExist.value && !e.target.classList.contains("fa-plus") && !e.target.closest(".modal-content")) {
+  if (
+    cityExist.value &&
+    !e.target.classList.contains("fa-plus") &&
+    !e.target.closest(".modal-content")
+  ) {
     toggleCityExist();
   }
-
 };
 
 onMounted(() => {
@@ -113,14 +109,13 @@ onUnmounted(() => {
   window.removeEventListener("click", handleClickOutside);
 });
 
-
 // add
 const savedCities = ref([]);
 const route = useRoute();
 const router = useRouter();
 
 const addCity = () => {
-  if(localStorage.getItem("savedCities")) {
+  if (localStorage.getItem("savedCities")) {
     savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
   }
 
@@ -130,28 +125,26 @@ const addCity = () => {
     city: route.params.city || "",
     coords: {
       lat: route.query.lat || 0,
-      lng: route.query.lng || 0
+      lng: route.query.lng || 0,
     },
   };
 
-  const cityExist = savedCities.value.some(city => (city.city === locationObj.city) && (city.state === locationObj.state));
+  const cityExist = savedCities.value.some(
+    (city) =>
+      city.city === locationObj.city && city.state === locationObj.state,
+  );
 
-  if(cityExist) {
+  if (cityExist) {
     toggleCityExist();
     return;
-  };
+  }
 
   savedCities.value.push(locationObj);
   localStorage.setItem("savedCities", JSON.stringify(savedCities.value));
 
-  let query = Object.assign({}, route.query)
-	delete query.preview;
+  let query = Object.assign({}, route.query);
+  delete query.preview;
   query.id = locationObj.id;
-	router.replace({query})
-
-  
-}
-
-
-
+  router.replace({ query });
+};
 </script>

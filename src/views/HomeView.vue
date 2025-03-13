@@ -13,10 +13,13 @@
         class="absolute bg-weather-secondary text-white w-full shadow-md py-2 px-1 top-[66px]"
         v-if="results"
       >
-      <p v-if="searchError" class="py-2">
-        Sorry, something went wrong, please try again
-      </p>
-      <p v-if="!searchError && results.length === 0" class="py-2">No cities found matching your search. Please try a different search term</p>
+        <p v-if="searchError" class="py-2">
+          Sorry, something went wrong, please try again
+        </p>
+        <p v-if="!searchError && results.length === 0" class="py-2">
+          No cities found matching your search. Please try a different search
+          term
+        </p>
         <template v-else>
           <li
             v-for="searchResult in results"
@@ -31,7 +34,7 @@
     </div>
     <div class="flex flex-col gap-4">
       <Suspense>
-        <CityList/>
+        <CityList />
         <template #fallback>
           <!-- <CityCardSkeleton></CityCardSkeleton> -->
         </template>
@@ -53,25 +56,24 @@ const previewCity = (searchResult) => {
   const [city, state, country] = locationName.split(",");
 
   const params = {
-    state: state.trim().replace(/\s+/g, "-"), 
-    city: city
-  }
+    state: state.trim().replace(/\s+/g, "-"),
+    city: city,
+  };
 
   if (country != undefined) {
     params.country = country.trim().replace(/\s+/g, "-");
   }
-  
+
   router.push({
     name: "cityView",
-    params:  params,
-    query: { 
+    params: params,
+    query: {
       lat: searchResult.lat,
       lng: searchResult.lon,
-      preview: true
-    }
-  })
+      preview: true,
+    },
+  });
 };
-
 
 const searchQuery = ref("");
 const queryTimeout = ref(null);
@@ -82,21 +84,20 @@ const getSearchResults = () => {
   clearTimeout(queryTimeout.value);
 
   queryTimeout.value = setTimeout(async () => {
-      if(searchQuery.value !== '') {
-        try {
-          const result = await axios.get(`https://geocode.maps.co/search?q=${searchQuery.value}&api_key=${import.meta.env.VITE_GEOCODE_API_KEY}`);
-          results.value = result.data;
-        } catch (error) {
-            searchError.value = true;
-        }
-          return;
-        }
-          results.value = null;
-      }, 1000);
+    if (searchQuery.value !== "") {
+      try {
+        const result = await axios.get(
+          `https://geocode.maps.co/search?q=${searchQuery.value}&api_key=${import.meta.env.VITE_GEOCODE_API_KEY}`,
+        );
+        results.value = result.data;
+      } catch (error) {
+        searchError.value = true;
+      }
+      return;
+    }
+    results.value = null;
+  }, 1000);
 };
 </script>
 
-<style  scoped>
-</style>
-
-
+<style scoped></style>

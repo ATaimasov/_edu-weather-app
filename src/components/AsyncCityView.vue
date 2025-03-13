@@ -37,7 +37,8 @@
         {{ weather.currentWeather.precipitationProb }}%
       </p>
       <i
-        :class="weather.currentWeather.description.icon" class=" pt-10 text-9xl"
+        :class="weather.currentWeather.description.icon"
+        class="pt-10 text-9xl"
       ></i>
     </div>
     <hr class="border-white border-opacity-10 border w-full" />
@@ -116,11 +117,15 @@
           </p>
           <div class="flex md:gap-6 gap-3 items-center">
             <div class="flex md:gap-2 gap-1 items-center">
-              <i class="md:text-4xl text-3xl wi wi-direction-up text-red-400"></i>
+              <i
+                class="md:text-4xl text-3xl wi wi-direction-up text-red-400"
+              ></i>
               <p class="md:text-base text-sm">{{ day.tempMax }}&deg;C</p>
             </div>
             <div class="flex gap-2 items-center">
-              <i class="md:text-4xl text-3xl wi wi-direction-down text-sky-200"></i>
+              <i
+                class="md:text-4xl text-3xl wi wi-direction-down text-sky-200"
+              ></i>
               <p class="md:text-base text-sm">{{ day.tempMin }}&deg;C</p>
             </div>
           </div>
@@ -128,52 +133,56 @@
       </div>
     </div>
 
-  <!-- remove -->
-    <div class="flex  items-center gap-2 pb-5 text-white cursor-pointer duration-150 hover:text-red-500" 
-    @click="removeCity">
+    <!-- remove -->
+    <div
+      class="flex items-center gap-2 pb-5 text-white cursor-pointer duration-150 hover:text-red-500"
+      @click="removeCity"
+    >
       <p>Remove City</p>
     </div>
-
   </div>
 </template>
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { ref, defineEmits, watch} from "vue";
+import { ref, defineEmits, watch } from "vue";
 import { getWeatherData } from "../utils/weather.js";
 
 const route = useRoute();
 const router = useRouter();
 
-
 const cityExist = ref(false);
-if(localStorage.getItem("savedCities")) {
+if (localStorage.getItem("savedCities")) {
   const savedCities = ref(JSON.parse(localStorage.getItem("savedCities")));
-  const currentCity = savedCities.value.find((city) => city.coords.lat === route.query.lat && city.coords.lng === route.query.lng);
+  const currentCity = savedCities.value.find(
+    (city) =>
+      city.coords.lat === route.query.lat &&
+      city.coords.lng === route.query.lng,
+  );
 
-  if(currentCity) {
+  if (currentCity) {
     cityExist.value = true;
   }
 }
 
-
-
-const weather = await getWeatherData(route.query.lat, route.query.lng)
+const weather = await getWeatherData(route.query.lat, route.query.lng);
 
 async function consoleTest() {
   let result = await weather;
-  console.log('Async City View component. Get processed data from api call',result);
+  console.log(
+    "Async City View component. Get processed data from api call",
+    result,
+  );
 }
 
 consoleTest();
 
 const removeCity = () => {
-   const cities = JSON.parse(localStorage.getItem("savedCities"));
-   const updatedCities = cities.filter((city) => city.id !== route.query.id);
-   localStorage.setItem("savedCities", JSON.stringify(updatedCities));
-   router.push({ name: "home" });
-}
-
+  const cities = JSON.parse(localStorage.getItem("savedCities"));
+  const updatedCities = cities.filter((city) => city.id !== route.query.id);
+  localStorage.setItem("savedCities", JSON.stringify(updatedCities));
+  router.push({ name: "home" });
+};
 
 // swiper
 import { Scrollbar, Mousewheel, Keyboard } from "swiper/modules";
